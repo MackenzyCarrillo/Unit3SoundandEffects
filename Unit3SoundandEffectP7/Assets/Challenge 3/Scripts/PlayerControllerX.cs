@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerControllerX : MonoBehaviour
@@ -16,7 +17,7 @@ public class PlayerControllerX : MonoBehaviour
     private AudioSource playerAudio;
     public AudioClip moneySound;
     public AudioClip explodeSound;
-    private bool lowEnough;
+    public float yRange;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,15 @@ public class PlayerControllerX : MonoBehaviour
         {
             playerRb.AddForce(Vector3.up * floatForce);
         }
+
+        if (transform.position.x > yRange)
+        {
+            transform.position = new Vector3(transform.position.x,-yRange, transform.position.z);
+        }
+
+        
+
+
     }
 
     private void OnCollisionEnter(Collision other)
