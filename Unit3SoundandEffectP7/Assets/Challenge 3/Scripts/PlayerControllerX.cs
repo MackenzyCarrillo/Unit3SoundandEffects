@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.LowLevel;
 
 public class PlayerControllerX : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerControllerX : MonoBehaviour
     private AudioSource playerAudio;
     public AudioClip moneySound;
     public AudioClip explodeSound;
+    public AudioClip boingSound;
     public float yRange;
 
     // Start is called before the first frame update
@@ -45,6 +47,7 @@ public class PlayerControllerX : MonoBehaviour
         }
 
         
+         
 
 
     }
@@ -69,6 +72,16 @@ public class PlayerControllerX : MonoBehaviour
             Destroy(other.gameObject);
 
         }
+
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            playerRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
+            playerAudio.PlayOneShot(boingSound, 1.0f);
+        }
+
+
+
+
 
     }
 

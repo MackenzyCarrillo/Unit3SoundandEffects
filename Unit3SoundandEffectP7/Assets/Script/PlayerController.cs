@@ -1,7 +1,10 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Windows;
+using Input = UnityEngine.Input;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,8 +13,11 @@ public class PlayerController : MonoBehaviour
     private AudioSource playerAudio;
     public float jumpForce = 10;
     public float gravityModifier;
+    public float doubleJump;
+    public bool doubleJumpUsed = false;
     public bool isOnGround = true;
     public bool gameOver = false;
+    public bool doubleSpeed = false;
     public ParticleSystem explosionParticle;
     public ParticleSystem dirtParticle;
     public AudioClip jumpSound;
@@ -37,6 +43,25 @@ public class PlayerController : MonoBehaviour
             dirtParticle.Stop();
             playerAudio.PlayOneShot(jumpSound, 1.0f);
         }
+
+        else if (Input.GetKeyDown(KeyCode.Space) && !isOnGround && !gameOver && !doubleJumpUsed)
+        {
+           doubleJumpUsed = true;
+           playerRb.AddForce(Vector3.up * doubleJump, ForceMode.Impulse);
+        }
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            doubleSpeed = true;
+            playerAnim.SetFloat("Speed_Multiplier", 2.0f);
+        }
+
+        else if (doubleSpeed)
+        {
+            doubleSpeed = false;
+            playerAnim.SetFloat("Speed_Multiplier", 1.0f);
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
