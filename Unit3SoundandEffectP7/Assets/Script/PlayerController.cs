@@ -46,11 +46,11 @@ public class PlayerController : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.Space) && !isOnGround && !gameOver && !doubleJumpUsed)
         {
-           doubleJumpUsed = true;
-           playerRb.AddForce(Vector3.up * doubleJump, ForceMode.Impulse);
+            doubleJumpUsed = true;
+            playerRb.AddForce(Vector3.up * doubleJump, ForceMode.Impulse);
         }
 
-        if(Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             doubleSpeed = true;
             playerAnim.SetFloat("Speed_Multiplier", 2.0f);
@@ -81,10 +81,10 @@ public class PlayerController : MonoBehaviour
             dirtParticle.Stop();
             playerAudio.PlayOneShot(crashSound, 1.0f);
         }
-            
-       
-    
-    
+
+
+
+
     }
 
 
